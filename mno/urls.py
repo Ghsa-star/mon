@@ -9,4 +9,3 @@ urlpatterns = [
     path('consultations/', include('consultations.urls')),  # الاستشارات والمتابعات
     path('payments/', include('payments_plans.urls')),      # الدفع والخطط
 ]
- 
