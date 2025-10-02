@@ -1,0 +1,113 @@
+<!-- templates/home.html -->
+{% include 'header.html' %}
+
+<main>
+  <section class="hero">
+    <h1>مرحبا بك في منصة الاستشارات المالية</h1>
+    <p>اطلب استشارة مالية أو خطط مالية شخصية بسهولة وأمان</p>
+  </section>
+
+  <section class="services">
+    <h2>خدماتنا</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>استشارة مالية</h3>
+        <p>السعر: 200 ريال</p>
+        <button>احجز الآن</button>
+      </div>
+      <div class="card">
+        <h3>خطة مالية شخصية</h3>
+        <p>السعر: 500 ريال</p>
+        <button>اطلب الخطة</button>
+      </div>
+      <div class="card">
+        <h3>مراجعة استثمارات</h3>
+        <p>السعر: 350 ريال</p>
+        <button>ابدأ الآن</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking">
+    <h2>حدد وقت الاستشارة</h2>
+    <form>
+      <label>اختر التاريخ:</label>
+      <input type="date" required>
+      <label>اختر الوقت:</label>
+      <input type="time" required>
+      <button type="submit">تأكيد الحجز</button>
+    </form>
+  </section>
+
+  <section class="payment">
+    <h2>انتقل إلى صفحة الدفع</h2>
+    <button onclick="window.location.href='/payment'">الدفع الآن</button>
+  </section>
+</main>
+
+{% include 'footer.html' %}
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Tahoma', sans-serif;
+  background: #f5f6fa;
+}
+main {
+  padding: 20px;
+}
+.hero {
+  text-align: center;
+  padding: 50px;
+  background: #1e90ff;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+.services h2, .booking h2, .payment h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 250px;
+  text-align: center;
+}
+.card h3 {
+  color: #0a3d62;
+}
+button {
+  background: #0a3d62;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button:hover {
+  background: #ffd32a;
+  color: black;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  margin: auto;
+}
+input, select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+</style>

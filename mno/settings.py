@@ -39,7 +39,7 @@ ROOT_URLCONF = 'mno.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],   # تعريف مجلد القوالب العام
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,7 +86,14 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+# الملفات الثابتة (Static)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]      # ملفات التطوير
+STATIC_ROOT = BASE_DIR / "staticfiles"        # مكان التجميع عند النشر
 
+# ملفات الميديا (المرفوعات)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
+# المفتاح الافتراضي للحقل الأساسي
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
