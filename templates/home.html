@@ -1,4 +1,13 @@
 <!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>الصفحة الرئيسية - منصة الاستشارات المالية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
 {% include 'header.html' %}
 
 <main>
@@ -35,13 +44,14 @@
       <input type="date" required>
       <label>اختر الوقت:</label>
       <input type="time" required>
-      <button type="submit">تأكيد الحجز</button>
+      <button type="submit" style="background:#1e90ff;">تأكيد الحجز</button>
     </form>
   </section>
 
   <section class="payment">
     <h2>انتقل إلى صفحة الدفع</h2>
-    <button onclick="window.location.href='/payment'">الدفع الآن</button>
+    <!-- تعديل الرابط إلى /payments/ -->
+    <button onclick="window.location.href='/payments/'">الدفع الآن</button>
   </section>
 </main>
 
@@ -110,4 +120,10 @@ input, select {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+section {
+  margin-bottom: 50px; /* إضافة مسافة بين الأقسام */
+}
 </style>
+
+</body>
+</html>
