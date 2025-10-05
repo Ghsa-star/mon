@@ -5,6 +5,108 @@
   <meta charset="UTF-8">
   <title>الصفحة الرئيسية - منصة الاستشارات المالية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tahoma', sans-serif;
+      background: #f5f6fa;
+    }
+    main {
+      padding: 20px;
+    }
+    .hero {
+      text-align: center;
+      padding: 50px;
+      background: #21486f;
+      color: white;
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+    .services h2, .booking h2, .payment h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 250px;
+      text-align: center;
+    }
+    .card h3 {
+      color: #0a3d62;
+    }
+    button {
+      background: #0a3d62;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #ffd32a;
+      color: black;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 300px;
+      margin: auto;
+    }
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    section {
+      margin-bottom: 50px; /* إضافة مسافة بين الأقسام */
+    }
+
+    /* تصميم النافذة المنبثقة */
+    .modal {
+      display: none; 
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 350px;
+      text-align: center;
+    }
+    .modal-content h2 {
+      margin-bottom: 20px;
+      color: #21486f;
+    }
+    .close {
+      color: #aaa;
+      float: left;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: red;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,17 +124,17 @@
       <div class="card">
         <h3>استشارة مالية</h3>
         <p>السعر: 200 ريال</p>
-        <button>احجز الآن</button>
+        <button onclick="openModal()">احجز الآن</button>
       </div>
       <div class="card">
         <h3>خطة مالية شخصية</h3>
         <p>السعر: 500 ريال</p>
-        <button>اطلب الخطة</button>
+        <button onclick="openModal()">اطلب الخطة</button>
       </div>
       <div class="card">
         <h3>مراجعة استثمارات</h3>
         <p>السعر: 350 ريال</p>
-        <button>ابدأ الآن</button>
+        <button onclick="openModal()">ابدأ الآن</button>
       </div>
     </div>
   </section>
@@ -44,86 +146,49 @@
       <input type="date" required>
       <label>اختر الوقت:</label>
       <input type="time" required>
-      <button type="submit" style="background:#1e90ff;">تأكيد الحجز</button>
+      <button type="submit" style="background:#122e49;">تأكيد الحجز</button>
     </form>
   </section>
 
   <section class="payment">
     <h2>انتقل إلى صفحة الدفع</h2>
-    <!-- تعديل الرابط إلى /payments/ -->
     <button onclick="window.location.href='/payments/'">الدفع الآن</button>
   </section>
 </main>
 
 {% include 'footer.html' %}
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Tahoma', sans-serif;
-  background: #f5f6fa;
-}
-main {
-  padding: 20px;
-}
-.hero {
-  text-align: center;
-  padding: 50px;
-  background: #1e90ff;
-  color: white;
-  border-radius: 8px;
-  margin-bottom: 40px;
-}
-.services h2, .booking h2, .payment h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  width: 250px;
-  text-align: center;
-}
-.card h3 {
-  color: #0a3d62;
-}
-button {
-  background: #0a3d62;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-button:hover {
-  background: #ffd32a;
-  color: black;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 300px;
-  margin: auto;
-}
-input, select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-section {
-  margin-bottom: 50px; /* إضافة مسافة بين الأقسام */
-}
-</style>
+<!-- نافذة تسجيل الدخول -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>تسجيل الدخول</h2>
+    <form>
+      <input type="text" placeholder="رقم الجوال" required>
+      <input type="email" placeholder="البريد الإلكتروني" required>
+      <input type="password" placeholder="كلمة المرور" required>
+      <button type="submit">دخول</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // فتح النافذة
+  function openModal() {
+    document.getElementById("loginModal").style.display = "block";
+  }
+  // إغلاق النافذة
+  function closeModal() {
+    document.getElementById("loginModal").style.display = "none";
+  }
+  // إغلاق النافذة عند الضغط خارجها
+  window.onclick = function(event) {
+    let modal = document.getElementById("loginModal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
 
 </body>
 </html>
