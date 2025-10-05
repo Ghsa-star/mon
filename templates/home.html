@@ -5,15 +5,25 @@
   <meta charset="UTF-8">
   <title>الصفحة الرئيسية - منصة الاستشارات المالية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- خط احتياطي من Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
+    /* إعداد الخط الأساسي */
     body {
       margin: 0;
-      font-family: 'Tahoma', sans-serif;
+      font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
       background: #f5f6fa;
+      color: #1b1b1b;
+      direction: rtl;
+      text-align: right;
     }
+
     main {
       padding: 20px;
     }
+
     .hero {
       text-align: center;
       padding: 50px;
@@ -22,16 +32,32 @@
       border-radius: 8px;
       margin-bottom: 40px;
     }
+
+    .hero h1 {
+      font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
     .services h2, .booking h2, .payment h2 {
       text-align: center;
       margin-bottom: 20px;
+      font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
+      color: #0a3d62;
+      font-size: 28px;
     }
+
     .cards {
       display: flex;
       justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
     }
+
     .card {
       background: white;
       padding: 20px;
@@ -39,10 +65,24 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       width: 250px;
       text-align: center;
+      transition: transform 0.2s ease-in-out;
     }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
     .card h3 {
       color: #0a3d62;
+      font-size: 22px;
+      margin-bottom: 10px;
     }
+
+    .card p {
+      font-size: 16px;
+      color: #444;
+    }
+
     button {
       background: #0a3d62;
       color: white;
@@ -51,11 +91,16 @@
       margin-top: 10px;
       cursor: pointer;
       border-radius: 5px;
+      font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
+      font-size: 16px;
+      transition: 0.3s;
     }
+
     button:hover {
       background: #ffd32a;
       color: black;
     }
+
     form {
       display: flex;
       flex-direction: column;
@@ -63,18 +108,27 @@
       width: 300px;
       margin: auto;
     }
+
+    label {
+      font-weight: bold;
+      color: #0a3d62;
+    }
+
     input, select {
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
+      font-size: 15px;
     }
+
     section {
-      margin-bottom: 50px; /* إضافة مسافة بين الأقسام */
+      margin-bottom: 50px;
     }
 
     /* تصميم النافذة المنبثقة */
     .modal {
-      display: none; 
+      display: none;
       position: fixed;
       z-index: 1000;
       left: 0;
@@ -84,6 +138,7 @@
       overflow: auto;
       background-color: rgba(0,0,0,0.6);
     }
+
     .modal-content {
       background-color: #fff;
       margin: 10% auto;
@@ -91,11 +146,15 @@
       border-radius: 8px;
       width: 350px;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
+
     .modal-content h2 {
       margin-bottom: 20px;
       color: #21486f;
+      font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
     }
+
     .close {
       color: #aaa;
       float: left;
@@ -103,6 +162,7 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     .close:hover {
       color: red;
     }
@@ -114,8 +174,8 @@
 
 <main>
   <section class="hero">
-    <h1>مرحبا بك في منصة الاستشارات المالية</h1>
-    <p>اطلب استشارة مالية أو خطط مالية شخصية بسهولة وأمان</p>
+    <h1>مرحباً بك في منصة الاستشارات المالية</h1>
+    <p>اطلب استشارة مالية أو خطة مالية شخصية بسهولة وأمان</p>
   </section>
 
   <section class="services">
@@ -177,10 +237,12 @@
   function openModal() {
     document.getElementById("loginModal").style.display = "block";
   }
+
   // إغلاق النافذة
   function closeModal() {
     document.getElementById("loginModal").style.display = "none";
   }
+
   // إغلاق النافذة عند الضغط خارجها
   window.onclick = function(event) {
     let modal = document.getElementById("loginModal");
