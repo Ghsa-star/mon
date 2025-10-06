@@ -27,7 +27,7 @@
       margin-bottom: 40px;
     }
 
-    /* قسم الخدمات */
+    /* قسم الاستشارات */
     .services {
       text-align: center;
       background-color: #f6f8fb;
@@ -73,11 +73,13 @@
     .card h3 {
       color: #0a3d62;
       margin-bottom: 10px;
+      font-size: 18px;
     }
 
     .card p {
       margin-bottom: 10px;
       color: #333;
+      font-size: 14px;
     }
 
     .card button {
@@ -88,6 +90,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      transition: 0.3s;
     }
 
     .card button:hover {
@@ -156,7 +159,7 @@
       {% endif %}
     </section>
 
-    <!-- قسم الاستشارات من قاعدة البيانات -->
+    <!-- قسم عرض الاستشارات -->
     <section class="services" id="services">
       <h2>الاستشارات المتاحة</h2>
       <div class="cards">
@@ -169,8 +172,8 @@
               <img src="{% static 'no_image.png' %}" alt="لا توجد صورة">
             {% endif %}
             <h3>{{ c.title }}</h3>
-            <p>📅 {{ c.scheduled_date|date:"Y-m-d H:i" }}</p>
-            <button>احجز الآن</button>
+            <p>📅 التاريخ: {{ c.scheduled_date|date:"Y-m-d H:i" }}</p>
+            <button onclick="alert('تم استلام طلبك للاستشارة: {{ c.title }}')">احجز الآن</button>
           </div>
         {% empty %}
           <p>لا توجد استشارات متاحة حالياً.</p>

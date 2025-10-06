@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # ------------------------------------------------------------
 # المسارات العامة
@@ -14,7 +17,7 @@ SECRET_KEY = 'django-insecure-z9e*-&4@ey6eptz9$3^gdhk*4!%en$6o_3#&(r9^x*&6d$opul
 
 DEBUG = True  # ❗ عند النشر غيّرها إلى False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # أضف نطاقك عند النشر
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # ------------------------------------------------------------
@@ -33,6 +36,10 @@ INSTALLED_APPS = [
     'accounts_profiles',
     'consultations',
     'payments_plans',
+
+    # تطبيقات Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
@@ -62,7 +69,7 @@ ROOT_URLCONF = 'mno.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # مجلد القوالب العام
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,15 +124,28 @@ USE_TZ = True
 # الملفات الثابتة (Static Files)
 # ------------------------------------------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]        # أثناء التطوير
-STATIC_ROOT = BASE_DIR / "staticfiles"          # عند النشر (collectstatic)
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # ------------------------------------------------------------
-# ملفات الميديا (Media Files)
+# إعداد Cloudinary (لرفع الصور إلى السحابة)
 # ------------------------------------------------------------
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dm8uypums',          # ✅ اسم حسابك في Cloudinary
+    'API_KEY': '449165262389287',       # ✅ ضع هنا الـ API Key من السطر CLOUDINARY_URL
+    'API_SECRET': 'VhNSwk3-_JB86KgiiYCLCoYJwlM',   # ✅ ضع هنا الـ API Secret من نفس السطر
+}
+
+# ✅ تهيئة الاتصال فعليًا حتى يتعرف Django على إعدادات Cloudinary
+cloudinary.config( 
+    cloud_name = "dm8uypums",
+    api_key = "449165262389287",
+    api_secret = "VhNSwk3-_JB86KgiiYCLCoYJwlM",
+    secure = True
+)
+# اعتماد Cloudinary لتخزين الميديا
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # ------------------------------------------------------------
