@@ -1,8 +1,14 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+# ------------------------------------------------------------
+# تحميل ملف البيئة .env
+# ------------------------------------------------------------
+load_dotenv()
 
 # ------------------------------------------------------------
 # المسارات العامة
@@ -13,11 +19,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------------------------------------------
 # مفاتيح الأمان
 # ------------------------------------------------------------
-SECRET_KEY = 'django-insecure-z9e*-&4@ey6eptz9$3^gdhk*4!%en$6o_3#&(r9^x*&6d$opul'
-
-DEBUG = True  # ❗ عند النشر غيّرها إلى False
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 # ------------------------------------------------------------
@@ -89,14 +93,28 @@ WSGI_APPLICATION = 'mno.wsgi.application'
 
 
 # ------------------------------------------------------------
-# قاعدة البيانات
+# قاعدة البيانات (تطوير + إنتاج)
 # ------------------------------------------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    # 🧪 قاعدة بيانات التطوير (SQLite)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # 🚀 قاعدة بيانات الإنتاج (PostgreSQL)
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv("DB_ENGINE"),
+            'HOST': os.getenv("DB_HOST"),
+            'PORT': os.getenv("DB_PORT"),
+            'NAME': os.getenv("DB_NAME"),
+            'USER': os.getenv("DB_USER"),
+            'PASSWORD': os.getenv("DB_PASSWORD"),
+        }
+    }
 
 
 # ------------------------------------------------------------
@@ -115,7 +133,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------
 LANGUAGE_CODE = 'ar'
 TIME_ZONE = 'Asia/Riyadh'
-
 USE_I18N = True
 USE_TZ = True
 
@@ -129,22 +146,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # ------------------------------------------------------------
-# إعداد Cloudinary (لرفع الصور إلى السحابة)
+# إعداد Cloudinary (رفع الصور إلى السحابة)
 # ------------------------------------------------------------
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dm8uypums',          # ✅ اسم حسابك في Cloudinary
-    'API_KEY': '449165262389287',       # ✅ ضع هنا الـ API Key من السطر CLOUDINARY_URL
-    'API_SECRET': 'VhNSwk3-_JB86KgiiYCLCoYJwlM',   # ✅ ضع هنا الـ API Secret من نفس السطر
-}
-
-# ✅ تهيئة الاتصال فعليًا حتى يتعرف Django على إعدادات Cloudinary
 cloudinary.config( 
-    cloud_name = "dm8uypums",
-    api_key = "449165262389287",
-    api_secret = "VhNSwk3-_JB86KgiiYCLCoYJwlM",
+    cloud_name = os.getenv("CLOUD_NAME"),
+    api_key = os.getenv("CLOUD_API_KEY"),
+    api_secret = os.getenv("CLOUD_API_SECRET"),
     secure = True
 )
-# اعتماد Cloudinary لتخزين الميديا
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
