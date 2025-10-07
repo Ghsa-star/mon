@@ -172,7 +172,6 @@
               <img src="{% static 'no_image.png' %}" alt="لا توجد صورة">
             {% endif %}
             <h3>{{ c.title }}</h3>
-            <p>📅 التاريخ: {{ c.scheduled_date|date:"Y-m-d H:i" }}</p>
             <button onclick="alert('تم استلام طلبك للاستشارة: {{ c.title }}')">احجز الآن</button>
           </div>
         {% empty %}
