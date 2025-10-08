@@ -3,4 +3,4 @@ from .models import Consultation
 
 @admin.register(Consultation)
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display = ("title", "scheduled_date")
+    list_display = ('title',)

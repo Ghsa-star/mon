@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 {% include 'header.html' %}
 
+=======
+>>>>>>> stable
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>تسجيل الدخول</title>
+<<<<<<< HEAD
 </head>
 <body>
     <h2>تسجيل الدخول</h2>
@@ -19,5 +23,29 @@
     {% for message in messages %}
         <p style="color: red;">{{ message }}</p>
     {% endfor %}
+=======
+    <style>
+        body { font-family: Tahoma; background-color: #f9f9f9; text-align: center; margin-top: 50px; }
+        form { display: inline-block; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+        input { width: 250px; padding: 8px; margin: 8px 0; }
+        button { background: #0a3d62; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #1e6091; }
+    </style>
+</head>
+<body>
+
+<h2>تسجيل الدخول</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="البريد الإلكتروني" required><br>
+    <button type="submit">دخول</button>
+</form>
+
+{% for message in messages %}
+<p style="color: red;">{{ message }}</p>
+{% endfor %}
+
+>>>>>>> stable
 </body>
 </html>

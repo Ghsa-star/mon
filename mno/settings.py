@@ -1,16 +1,34 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
+# ------------------------------------------------------------
+# تحميل ملف البيئة .env
+# ------------------------------------------------------------
+load_dotenv()
+
+# ------------------------------------------------------------
+# المسارات العامة
+# ------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-z9e*-&4@ey6eptz9$3^gdhk*4!%en$6o_3#&(r9^x*&6d$opul'
 
-DEBUG = True
+# ------------------------------------------------------------
+# مفاتيح الأمان
+# ------------------------------------------------------------
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
-ALLOWED_HOSTS = []
 
-
+# ------------------------------------------------------------
+# التطبيقات
+# ------------------------------------------------------------
 INSTALLED_APPS = [
-    # التطبيقات الافتراضية من Django
+    # تطبيقات Django الأساسية
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -18,12 +36,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # التطبيقات الخاصة بالمشروع
+    # تطبيقات المشروع
     'accounts_profiles',
     'consultations',
     'payments_plans',
+
+    # تطبيقات Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
+
+# ------------------------------------------------------------
+# الـ Middleware
+# ------------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -34,12 +60,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# ------------------------------------------------------------
+# روابط المشروع
+# ------------------------------------------------------------
 ROOT_URLCONF = 'mno.urls'
 
+
+# ------------------------------------------------------------
+# إعدادات القوالب (Templates)
+# ------------------------------------------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],   # تعريف مجلد القوالب العام
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,49 +85,79 @@ TEMPLATES = [
     },
 ]
 
+
+# ------------------------------------------------------------
+# إعدادات WSGI
+# ------------------------------------------------------------
 WSGI_APPLICATION = 'mno.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# ------------------------------------------------------------
+# قاعدة البيانات (تطوير + إنتاج)
+# ------------------------------------------------------------
+if DEBUG:
+    # 🧪 قاعدة بيانات التطوير (SQLite)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # 🚀 قاعدة بيانات الإنتاج (PostgreSQL)
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv("DB_ENGINE"),
+            'HOST': os.getenv("DB_HOST"),
+            'PORT': os.getenv("DB_PORT"),
+            'NAME': os.getenv("DB_NAME"),
+            'USER': os.getenv("DB_USER"),
+            'PASSWORD': os.getenv("DB_PASSWORD"),
+        }
+    }
 
 
+# ------------------------------------------------------------
+# إعدادات كلمات المرور
+# ------------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 
+# ------------------------------------------------------------
 # اللغة والمنطقة الزمنية
-LANGUAGE_CODE = 'ar'          # تغيير اللغة للعربية
-TIME_ZONE = 'Asia/Riyadh'     # تغيير التوقيت إلى الرياض
-
+# ------------------------------------------------------------
+LANGUAGE_CODE = 'ar'
+TIME_ZONE = 'Asia/Riyadh'
 USE_I18N = True
 USE_TZ = True
 
 
-# الملفات الثابتة (Static)
+# ------------------------------------------------------------
+# الملفات الثابتة (Static Files)
+# ------------------------------------------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]      # ملفات التطوير
-STATIC_ROOT = BASE_DIR / "staticfiles"        # مكان التجميع عند النشر
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# ملفات الميديا (المرفوعات)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
 
-# المفتاح الافتراضي للحقل الأساسي
+# ------------------------------------------------------------
+# إعداد Cloudinary (رفع الصور إلى السحابة)
+# ------------------------------------------------------------
+cloudinary.config( 
+    cloud_name = os.getenv("CLOUD_NAME"),
+    api_key = os.getenv("CLOUD_API_KEY"),
+    api_secret = os.getenv("CLOUD_API_SECRET"),
+    secure = True
+)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# ------------------------------------------------------------
+# إعدادات عامة
+# ------------------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

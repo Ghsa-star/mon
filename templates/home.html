@@ -1,4 +1,4 @@
-<!-- templates/home.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,6 +6,7 @@
   <title>الصفحة الرئيسية - منصة الاستشارات المالية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<<<<<<< HEAD
   <!-- خط احتياطي من Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 
@@ -18,21 +19,37 @@
       color: #1b1b1b;
       direction: rtl;
       text-align: right;
+=======
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tahoma', sans-serif;
+      background: #f5f6fa;
+>>>>>>> stable
     }
 
     main {
       padding: 20px;
     }
 
+<<<<<<< HEAD
     .hero {
       text-align: center;
       padding: 50px;
       background: #21486f;
+=======
+    /* قسم الترحيب */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #0a3d62, #1e90ff);
+>>>>>>> stable
       color: white;
       border-radius: 8px;
       margin-bottom: 40px;
     }
 
+<<<<<<< HEAD
     .hero h1 {
       font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
       font-size: 36px;
@@ -49,31 +66,70 @@
       font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
       color: #0a3d62;
       font-size: 28px;
+=======
+    /* قسم الاستشارات */
+    .services {
+      text-align: center;
+      background-color: #f6f8fb;
+      padding: 50px 0;
+      border-radius: 8px;
+    }
+
+    .services h2 {
+      margin-bottom: 40px;
+      color: #000;
+>>>>>>> stable
     }
 
     .cards {
       display: flex;
       justify-content: center;
+<<<<<<< HEAD
       gap: 20px;
+=======
+      gap: 40px;
+>>>>>>> stable
       flex-wrap: wrap;
     }
 
     .card {
       background: white;
+<<<<<<< HEAD
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       width: 250px;
       text-align: center;
       transition: transform 0.2s ease-in-out;
+=======
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 270px;
+      transition: 0.3s;
+      text-align: center;
+>>>>>>> stable
     }
 
     .card:hover {
       transform: translateY(-5px);
+<<<<<<< HEAD
+=======
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+>>>>>>> stable
     }
 
     .card h3 {
       color: #0a3d62;
+<<<<<<< HEAD
       font-size: 22px;
       margin-bottom: 10px;
     }
@@ -81,6 +137,56 @@
     .card p {
       font-size: 16px;
       color: #444;
+=======
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .card button {
+      background: #0a3d62;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .card button:hover {
+      background: #1e6091;
+    }
+
+    /* قسم الحجز والدفع */
+    .booking, .payment {
+      text-align: center;
+      margin: 50px auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      width: 350px;
+      padding: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      margin: auto;
+    }
+
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+>>>>>>> stable
     }
 
     button {
@@ -91,9 +197,12 @@
       margin-top: 10px;
       cursor: pointer;
       border-radius: 5px;
+<<<<<<< HEAD
       font-family: 'Sakkal Majalla', 'Cairo', sans-serif;
       font-size: 16px;
       transition: 0.3s;
+=======
+>>>>>>> stable
     }
 
     button:hover {
@@ -101,6 +210,7 @@
       color: black;
     }
 
+<<<<<<< HEAD
     form {
       display: flex;
       flex-direction: column;
@@ -166,12 +276,19 @@
     .close:hover {
       color: red;
     }
+=======
+    section {
+      margin-bottom: 50px;
+    }
+>>>>>>> stable
   </style>
 </head>
+
 <body>
 
-{% include 'header.html' %}
+  {% include 'header.html' %}
 
+<<<<<<< HEAD
 <main>
   <section class="hero">
     <h1>مرحباً بك في منصة الاستشارات المالية</h1>
@@ -251,6 +368,62 @@
     }
   }
 </script>
+=======
+  <main>
+    <!-- قسم الترحيب -->
+    <section class="hero">
+      {% if request.session.user_name %}
+        <h1>مرحبًا بك {{ request.session.user_name }} 👋</h1>
+        <p>سعداء بعودتك إلى منصة الاستشارات المالية</p>
+      {% else %}
+        <h1>مرحبًا بك في منصة الاستشارات المالية</h1>
+        <p>اطلب استشارة مالية أو خطة مالية شخصية بسهولة وأمان</p>
+      {% endif %}
+    </section>
+
+    <!-- قسم عرض الاستشارات -->
+    <section class="services" id="services">
+      <h2>الاستشارات المتاحة</h2>
+      <div class="cards">
+
+        {% for c in consultations %}
+          <div class="card">
+            {% if c.image %}
+              <img src="{{ c.image.url }}" alt="{{ c.title }}">
+            {% else %}
+              <img src="{% static 'no_image.png' %}" alt="لا توجد صورة">
+            {% endif %}
+            <h3>{{ c.title }}</h3>
+            <button onclick="alert('تم استلام طلبك للاستشارة: {{ c.title }}')">احجز الآن</button>
+          </div>
+        {% empty %}
+          <p>لا توجد استشارات متاحة حالياً.</p>
+        {% endfor %}
+
+      </div>
+    </section>
+
+    <!-- قسم الحجز -->
+    <section class="booking">
+      <h2>حدد وقت الاستشارة</h2>
+      <form>
+        <label>اختر التاريخ:</label>
+        <input type="date" required>
+        <label>اختر الوقت:</label>
+        <input type="time" required>
+        <button type="submit" style="background:#1e90ff;">تأكيد الحجز</button>
+      </form>
+    </section>
+
+    <!-- قسم الدفع -->
+    <section class="payment">
+      <h2>انتقل إلى صفحة الدفع</h2>
+      <button onclick="window.location.href='/payments/'">الدفع الآن</button>
+    </section>
+  </main>
+
+  {% include 'footer.html' %}
+>>>>>>> stable
 
 </body>
 </html>

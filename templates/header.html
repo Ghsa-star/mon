@@ -4,10 +4,18 @@
     <div class="logo">💰 MNO Consulting</div>
     <nav>
       <ul>
-        <li><a href="#">الرئيسية</a></li>
+        <li><a href="/">الرئيسية</a></li>
         <li><a href="#">من نحن</a></li>
         <li><a href="#">خدماتنا</a></li>
         <li><a href="#">اتصل بنا</a></li>
+
+        {% if request.session.user_name %}
+          <li>مرحبًا، {{ request.session.user_name }}</li>
+          <li><a href="{% url 'logout' %}">تسجيل الخروج</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}">تسجيل الدخول</a></li>
+          <li><a href="{% url 'register' %}">إنشاء حساب</a></li>
+        {% endif %}
       </ul>
     </nav>
     <div class="auth-buttons">
