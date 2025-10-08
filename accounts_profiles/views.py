@@ -2,37 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import AccountProfile
 
-<<<<<<< HEAD
-# عرض نموذج إنشاء حساب
-def register_view(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
 
-        if AccountProfile.objects.filter(email=email).exists():
-            messages.error(request, "البريد الإلكتروني مستخدم من قبل.")
-        else:
-            AccountProfile.objects.create(name=name, email=email)
-            messages.success(request, "تم إنشاء الحساب بنجاح.")
-            return redirect('login')
-
-    return render(request, 'accounts_profiles/register.html')
-
-
-# عرض نموذج تسجيل الدخول
-def login_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-
-        try:
-            user = AccountProfile.objects.get(email=email)
-            messages.success(request, f"مرحباً {user.name}!")
-            return redirect('home')  # تقدر تعدل الوجهة لاحقاً
-        except AccountProfile.DoesNotExist:
-            messages.error(request, "البريد الإلكتروني غير مسجل.")
-
-    return render(request, 'accounts_profiles/login.html')
-=======
 def register_view(request):
     """
     إنشاء حساب جديد
@@ -76,7 +46,7 @@ def login_view(request):
             # حفظ اسم المستخدم في الجلسة
             request.session["user_name"] = user.name
             messages.success(request, f"مرحبًا {user.name}!")
-            return redirect("home")  # يمكنك تغيير الصفحة الوجهة إذا لزم الأمر
+            return redirect("home")  # يمكنك تعديل الوجهة لاحقًا
         except AccountProfile.DoesNotExist:
             messages.error(request, "البريد الإلكتروني غير مسجل لدينا.")
             return redirect("login")
@@ -92,4 +62,3 @@ def logout_view(request):
     request.session.flush()
     messages.info(request, "تم تسجيل الخروج بنجاح.")
     return redirect("home")
->>>>>>> stable
